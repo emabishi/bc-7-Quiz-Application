@@ -57,37 +57,6 @@ def list_quizzes():
 	#Add some styling
 	print("$" *20 + "=" * 20 + "%" * 20)
 
-def rank():
-	level_response = input("Please choose your prefered player level.\n Type 'B' or 'b' for Beginner Mode\n Type 'I' or 'i' for intermediate Mode and\n Type 'G' or 'g' for Guru Mode")
-	try:
-		if level_response == "Beginner" or "B" or "b":
-
-			#launch beginner module
-			#call list quiz and take quiz functions
-			list_quizzes()
-			take_quiz()
-
-			#time_per_question = 10 seconds
-
-		elif level_response == "Intermediate" or "I" or "i":
-
-			#launch intermediate module
-
-			list_quizzes()
-			take_quiz()
-
-			#time_per_question = 7 seconds
-			
-		elif level_response == "Guru" or "G" or "g":
-
-		 	#launch guru module
-		 	list_quizzes
-		 	take_quiz()
-
-		 	#time per question = 6 seconds
-		 	
-	except ValueError:
-		return "Invalid response: Please enter your preferred player level.\n Type 'B' or 'b' for Beginner Mode\n Type 'I' or 'i' for intermediate Mode and\n Type 'G' or 'g' for Guru Mode"
 
 #takequiz <quiz_name> - Start taking a new quiz
 def take_quiz(quiz_name):
@@ -113,11 +82,22 @@ def take_quiz(quiz_name):
 		position = 0
 		while position < len(questions):
 
+			
+			#Start timing
+			start_time = time.time()
+			duration = 10
+			
 			#return a question in the quiz
 			print questions[position]
 
-			#Call start timing function
-			#start_timing()
+			#Still time left
+			out_of_time = False
+
+			#For each question
+			for question in questions:
+				if time.time() - start_time > duration:
+					out_of_time == True
+					break
 
 			#Prompt user for an answer
 			user_answer = input("Please enter your answer.\n")
