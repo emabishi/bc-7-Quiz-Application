@@ -2,10 +2,17 @@ import time
 import os
 import json
 import random
+import requests
+from firebase import firebase as firebase_lib
+import urllib
+from tqdm import tqdm
+import Tkinter as tk
+
 
 # Function to run Introduction to Quizzler game
 def intro():
-	print("Welcome to Quizzler!")
+	#print("Welcome to Quizzler!")
+	welcome_marquee()
 	player_name = input("What is your name, player?")
 	print(player_name, "Use these commands to explore quizzler's functionality.\n")
 	time.sleep(0.5)
@@ -97,6 +104,7 @@ def take_quiz(quiz_name):
 			for question in questions:
 				if time.time() - start_time > duration:
 					out_of_time == True
+					print("Sorry! Your time's up!")
 					break
 
 			#Prompt user for an answer
@@ -108,14 +116,23 @@ def take_quiz(quiz_name):
 			else:
 				print("Your answer is incorrect \n")
 				print("Your score is {}").format(score)
+
 			#A question has been attempted, increment position variable
 			position +=1
+
+			#Get elapsed time
+			elapsed = (time.time() - start_time)
+
+			# Get remaining time
+            remaining = int(duration - elapsed)
+
+            # Display remaing time in user friendly formatting
+            print "\tTime remaining: " + str(remaining) + " seconds\n"
+
 			if position == len(questions):
 				print("Your total socre is {} \n").format(score)
 				print("Questions in module over. Please take another quiz")
 
-				#Call rank function
-				rank()
 
 				#Call list quizzes function
 				list_quizzes()
@@ -162,8 +179,6 @@ def take_quiz(quiz_name):
 				print("Your total socre is {} \n").format(score)
 				print("Questions in module over. Please take another quiz")
 
-				#Call rank function
-				rank()
 
 				#Call list quizzes function
 				list_quizzes()
@@ -192,8 +207,6 @@ def take_quiz(quiz_name):
 			#return a question in the quiz
 			print questions[position]
 
-			#Call start timing function
-			#start_timing()
 
 			#Prompt user for an answer
 			user_answer = input("Please enter your answer.\n")
@@ -221,14 +234,27 @@ def play_again():
 	#ask play_again
 	play_again_response  = input("Would you like to play again?")
 
-	#if input is y
-	#return quiz list
+	#if input is yes, return quiz list
 	if play_again_response == "YES" or "Y" or "y":
-		rank()
+		list_quizzes()
     
 	#else exit game
 	else:
 		raise SystemExit
 
 
-	
+def welcome_marquee():
+	root = tk.Tk()
+	deli = 100           # milliseconds of delay per character
+	svar = tk.StringVar()
+	labl = tk.Label(root, textvariable=svar, height=10 )
+
+	def shif():
+	    shif.msg = shif.msg[1:] + shif.msg[0]
+	    svar.set(shif.msg)
+	    root.after(deli, shif)
+
+	shif.msg = ' Welcome to Quizzler. Close this window to play a game. '
+	shif()
+	labl.pack()
+	root.mainloop()
