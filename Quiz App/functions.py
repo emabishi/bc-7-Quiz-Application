@@ -9,17 +9,14 @@ from tqdm import tqdm
 import Tkinter as tk
 
 
-# Function to run Introduction to Quizzler game
-def intro():
-	#print("Welcome to Quizzler!")
-	welcome_marquee()
-	player_name = input("What is your name, player?")
-	print(player_name, "Use these commands to explore quizzler's functionality.\n")
-	time.sleep(0.5)
-	print (help())
-
 #Function to List Quizzler commands
-def help():
+def do_inst(self,line):
+	print("=================Welcome to Quizzler!====================")
+	print("\n=============Give me a moment to load!=================\n")
+	for x in tqdm(range(20)):
+		sleep(0.1)
+	print("Player, Use these commands to explore quizzler's functionality.\n")
+	time.sleep(0.5)
 	print("====================Commands==================== \n")
 	time.sleep(0.2)
 	print("help ===================== `Displays all available commands`\n")
@@ -59,7 +56,7 @@ def list_quizzes():
 			print((file)[:len(file) - 5])
 
 	#User tip
-	print("\nTip: Use command 'takequiz<quizname>' to begin taking a quiz\n")
+	print("\nTip: Use command 'takequiz<quizname>' to begin taking a quiz")
 
 	#Add some styling
 	print("$" *20 + "=" * 20 + "%" * 20)
