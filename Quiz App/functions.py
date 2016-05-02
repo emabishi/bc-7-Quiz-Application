@@ -40,15 +40,19 @@ def list_quizzes():
 	#Check whether the folder structure exists, if it does not, create it
 	if os.path.exists(path_to_local_quizzes) == False:
 		os.makedirs(path_to_local_quizzes)
+
+	print("These are your local quizzes")
+
 	for file in os.listdir(path_to_local_quizzes):
 
 		#Check whether file is .json files
 		if file.endswith(".json"):
 
 			#if it is, print it out without the .json extension
-			print(file)[:len(file) - 5]
+			print((file)[:len(file) - 5])
+
 	#User tip
-	print("\n Use command 'takequiz<quizname>' to begin taking a quiz")
+	print("\nTip: Use command 'takequiz<quizname>' to begin taking a quiz\n")
 
 	#Add some styling
 	print("\n" + "$" *20 + "=" * 20 + "%" * 20 + "\n")
@@ -138,7 +142,7 @@ def take_quiz(quiz_name):
 
 
 	path_to_quiz_GOT = 'C:\\Quizzler\\Quizzes\\GOT'
-	elif quiz_name == os.path.basename(path_to_quiz_GOT):
+	if quiz_name == os.path.basename(path_to_quiz_GOT):
 		#use json load function to convert to list
 		with open(path_to_quiz_GOT) as GOT_quiz:
 			GOT_questions = json.load(GOT_quiz)
@@ -184,7 +188,7 @@ def take_quiz(quiz_name):
 
 
 	path_to_quiz_MATH = 'C:\\Quizzler\\Quizzes\\MATH'
-	elif quiz_name == os.path.basename(path_to_quiz_MATH):
+	if quiz_name == os.path.basename(path_to_quiz_MATH):
 
 		#use json load function to convert to list
 		with open(path_to_quiz_MATH) as MATH_quiz:
@@ -221,15 +225,24 @@ def take_quiz(quiz_name):
 			position +=1
 			if position == len(questions):
 				print("Your total socre is {} \n").format(score)
-				print("Questions in module over. Please take another quiz")
+				print("Questions in module over.")
 
-				#Call rank function
-				rank()
-
-				#Call list quizzes function
-				list_quizzes()
+				#Call play_agin function
+				play_again()
 
 
+def play_again():
+	#ask play_again
+	play_again_response  = input("Would you like to play again?")
+
+	#if input is y
+	#return quiz list
+	if play_again_response == "YES" or "Y" or "y":
+		rank()
+    
+	#else exit game
+	else:
+		raise SystemExit
 
 
 	
