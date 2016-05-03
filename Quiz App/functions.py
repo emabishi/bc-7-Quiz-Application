@@ -79,7 +79,7 @@ class Quizzler(cmd.Cmd):
 
 	#takequiz <quiz_name> - Start taking a new quiz
 	def do_take_quiz(quiz_name):
-		quiz_name = raw_input("Use command 'takequiz<quizname>' to begin taking a quiz\n")    
+		#quiz_name = raw_input("Use command 'takequiz<quizname>' to begin taking a quiz\n")    
 
 		#name of local json file. get base name as quiz name
 		path_to_quiz_LOTR = 'C:\\Quizzler\\Quizzes\\LOTR.json'
