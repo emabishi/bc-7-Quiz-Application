@@ -105,12 +105,11 @@ class Quiz(cmd.Cmd):
 
                 #Monitor number of questions asked
                 position = 0
+
+                start_time = time.time()
+                duration = 10 * len(questions)
                 while position < len(questions):
 
-                    
-                    #Start timing
-                    start_time = time.time()
-                    duration = 10
                     
                     #return a question in the quiz
                     print questions[position]
@@ -118,15 +117,15 @@ class Quiz(cmd.Cmd):
                     #Still time left
                     out_of_time = False
 
-                    #For each question
-                    for question in questions:
-                        if time.time() - start_time > duration:
-                            out_of_time == True
-                            print("Sorry! Your time's up!")
-                            break
 
                     #Prompt user for an answer
                     user_answer = raw_input("Please enter your answer.\n")
+                    elapsed = time.time() - start_time
+                    if elapsed > duration:
+                        out_of_time == True
+                        print("Sorry! Your time's up!")
+                        break
+                    print "time remaining: %.f seconds" % (duration - elapsed)
                     if user_answer == LOTR[(questions[position])]:   #Answer to question
                         print("Your answer is correct! \n")
                         score += 1
@@ -137,20 +136,6 @@ class Quiz(cmd.Cmd):
 
                     #A question has been attempted, increment position variable
                     position +=1
-
-                    #Get elapsed time
-                    elapsed = (time.time() - start_time)
-
-                    # Get remaining time
-                    remaining = int(duration - elapsed)
-                    '''
-                    if remaining == 0:
-                        print("Your time's up!")
-                        break
-                    '''
-
-                    # Display remaing time in user friendly formatting
-                    print "\tTime remaining: " + str(remaining) + " seconds\n"
 
                     if position == len(questions):
                         print("Your total socre is {} \n").format(score)
