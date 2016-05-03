@@ -14,7 +14,8 @@ class Quizzler(cmd.Cmd):
 
 	#Change deafult prompt to 'Quizzler'
 		prompt = '(Quizzler)'
-
+	player_name = raw_input("What is your name Player?\n")
+	print("======================Greetings {}!========================\n").format(player_name)
 	print("=================Welcome to Quizzler!====================")
 	print("\n=============Give me a moment to load!=================\n")
 	for x in tqdm(range(20)):
@@ -78,7 +79,7 @@ class Quizzler(cmd.Cmd):
 
 	#takequiz <quiz_name> - Start taking a new quiz
 	def do_take_quiz(quiz_name):
-		quiz_name = input("Use command 'takequiz<quizname>' to begin taking a quiz\n")    
+		quiz_name = raw_input("Use command 'takequiz<quizname>' to begin taking a quiz\n")    
 
 		#name of local json file. get base name as quiz name
 		path_to_quiz_LOTR = 'C:\\Quizzler\\Quizzes\\LOTR.json'
@@ -119,7 +120,7 @@ class Quizzler(cmd.Cmd):
 						break
 
 				#Prompt user for an answer
-				user_answer = input("Please enter your answer.\n")
+				user_answer = raw_input("Please enter your answer.\n")
 				if user_answer == LOTR[(questions[position])]:   #Answer to question
 					print("Your answer is correct! \n")
 					score += 1
@@ -145,11 +146,11 @@ class Quizzler(cmd.Cmd):
 					print("Questions in module over. Please take another quiz")
 					print("\nUse command <listquizzes> to see your list of local quizzes or help to view options.\n")
 
-		else:
-			print "Invalid response.Quiz does not exist."
+		#else:
+			#print "Invalid response.Quiz does not exist."
 
 
-		path_to_quiz_GOT = 'C:\\Quizzler\\Quizzes\\GOT'
+		path_to_quiz_GOT = 'C:\\Quizzler\\Quizzes\\GOT.json'
 		if quiz_name in os.path.basename(path_to_quiz_GOT):
 			#use json load function to convert to list
 			with open(path_to_quiz_GOT) as GOT_quiz:
@@ -174,7 +175,7 @@ class Quizzler(cmd.Cmd):
 				#start_timing()
 
 				#Prompt user for an answer
-				user_answer = input("Please enter your answer.\n")
+				user_answer = raw_input("Please enter your answer.\n")
 				if user_answer == GOT[(questions[position])]:
 					print("Your answer is correct! \n")
 					score += 1
@@ -187,13 +188,11 @@ class Quizzler(cmd.Cmd):
 				if position == len(questions):
 					print("Your total socre is {} \n").format(score)
 					print("Questions in module over. Please take another quiz")
+					print("\nUse command <listquizzes> to see your list of local quizzes or help to view options.\n")
 
-
-					#Call list quizzes function
-					list_quizzes()
-		else:
-			print "Invalid response.Quiz does not exist."
-
+		#else:
+			#print "Invalid response.Quiz does not exist."
+'''
 		path_to_quiz_MATH = 'C:\\Quizzler\\Quizzes\\MATH'
 		if quiz_name in os.path.basename(path_to_quiz_MATH):
 
@@ -232,13 +231,12 @@ class Quizzler(cmd.Cmd):
 					print("Your total socre is {} \n").format(score)
 					print("Questions in module over.")
 
-					#Call play_again function
-					play_again()
 
 		else:
 			print "Invalid response.Quiz does not exist."
 
-
+'''
+'''
 	def do_play_again():
 		#ask play_again
 		play_again_response  = input("Would you like to play again?")
@@ -250,7 +248,7 @@ class Quizzler(cmd.Cmd):
 		#else exit game
 		else:
 			raise SystemExit
-
+'''
 	def do_EOF(self,line):
 		return True
 
