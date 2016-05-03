@@ -5,6 +5,14 @@ import time
 import cmd
 from tqdm import tqdm
 import shutil
+from firebase import firebase
+
+# Firebase db url to upload and download samplequiz
+firebase_url = 'https://scorching-inferno-6139.firebaseio.com/'
+
+
+# API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
+firebase = firebase.FirebaseApplication('https://scorching-inferno-6139.firebaseio.com/', None)
 
 
 
@@ -204,8 +212,6 @@ class Quiz(cmd.Cmd):
             # src = str(src)
             # src = os.path.abspath(src)
 
-
-
             #Local destination to store imported quizzes
             local_destination = 'C:\\Quizzler\\Imported Quizzes'
 
@@ -226,6 +232,30 @@ class Quiz(cmd.Cmd):
             #Print Error message showing user that source destination does not exist
             except IOError:
                 print("Source destination does not exist")
+
+
+        #List online quiz function function
+        def do_list_online(self,online_quizzes):
+
+            """
+                DESCRIPTION
+                    List quizzes stored online
+                    EXAMPLE USAGE:
+                        listonline
+                """
+
+            # Perform a get request and store the root file in the online quizzes folder in C
+
+            online_quizzes = firebase.get('/Quiz', None) #Quiz holds quizzes
+
+
+            # Loop over the samplequizzes to list them 
+            # Call enumerate method to arrange the quizzes starting from 1
+            for quiz in online_quizzes:
+
+                # Print quiz from firebase db
+                print quiz
+
 
         def do_EOF(self,line):
             return True
