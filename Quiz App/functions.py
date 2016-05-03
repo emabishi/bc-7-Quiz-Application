@@ -6,40 +6,48 @@ import requests
 from firebase import firebase as firebase_lib
 import urllib
 from tqdm import tqdm
-import Tkinter as tk
+import cmd
 
-class Quiz(cmd.Cmd):
+class Quizzler(cmd.Cmd):
 
-#Function to List Quizzler commands
-	def do_inst(self,line):
-		print("=================Welcome to Quizzler!====================")
-		print("\n=============Give me a moment to load!=================\n")
-		for x in tqdm(range(20)):
-			sleep(0.1)
-		print("Player, Use these commands to explore quizzler's functionality.\n")
-		time.sleep(0.5)
-		print("====================Commands==================== \n")
-		time.sleep(0.2)
-		print("help ===================== `Displays all available commands`\n")
-		time.sleep(0.2)
-		print("help<command> ============ 'Describes the command\n")
-		time.sleep(0.2)
-		print("listquizzes ============== 'Displays available local quizzes \n")
-		time.sleep(0.2)
-		print("takequiz<quiz_name> ====== 'Launches the local quiz quiz_name'\n")
-		time.sleep(0.2)
-		print("listonline   ============= 'Display available online quizzes'\n")
-		time.sleep(0.2)
-		print("takeonline <quiz_name> ====`Launch the online quiz quiz_name`\n")
-		time.sleep(0.2)
-		print("importquiz <path_to_json> = `Add a quiz to the local collection`\n")
-		time.sleep(0.2)
-		print("publishquiz  ==============='Add quiz to online collection")
+	"""Master class with all quiz app functions"""
+
+	#Change deafult prompt to 'Quizzler'
+		prompt = '(Quizzler)'
+
+	print("=================Welcome to Quizzler!====================")
+	print("\n=============Give me a moment to load!=================\n")
+	for x in tqdm(range(20)):
+		sleep(0.1)
+	print("Player, Use these commands to explore quizzler's functionality.\n")
+	time.sleep(0.5)
+	print("====================Commands==================== \n")
+	time.sleep(0.2)
+	print("help ===================== `Displays all available commands`\n")
+	time.sleep(0.2)
+	print("help<command> ============ 'Describes the command\n")
+	time.sleep(0.2)
+	print("listquizzes ============== 'Displays available local quizzes \n")
+	time.sleep(0.2)
+	print("takequiz<quiz_name> ====== 'Launches the local quiz quiz_name'\n")
+	time.sleep(0.2)
+	print("listonline   ============= 'Display available online quizzes'\n")
+	time.sleep(0.2)
+	print("takeonline <quiz_name> ====`Launch the online quiz quiz_name`\n")
+	time.sleep(0.2)
+	print("importquiz <path_to_json> = `Add a quiz to the local collection`\n")
+	time.sleep(0.2)
+	print("publishquiz  ==============='Add quiz to online collection")
 
 
 	#listquizzes command-  List of all the available quizzes in your library
 	#quizzes stored in C:Quizzler\\Quizzes
-	def d0_list_quizzes(self,line):
+	def do_listquizzes(self,line):
+		""" 
+			DESCRIPTION: List all local quizzes in quiz app
+			USAGE: Command : listquizzes
+
+			"""
 		path_to_local_quizzes = 'C:\\Quizzler\\Quizzes'
 
 		#Check whether the folder structure exists, if it does not, create it
@@ -135,10 +143,8 @@ class Quiz(cmd.Cmd):
 				if position == len(questions):
 					print("Your total socre is {} \n").format(score)
 					print("Questions in module over. Please take another quiz")
+					print("\nUse command <listquizzes> to see your list of local quizzes or help to view options.\n")
 
-
-					#Call list quizzes function
-					list_quizzes()
 		else:
 			print "Invalid response.Quiz does not exist."
 
@@ -249,5 +255,5 @@ class Quiz(cmd.Cmd):
 		return True
 
 if __name__ == '__main__':
-    Quiz().cmdloop()
+    Quizzler().cmdloop()
 
