@@ -293,6 +293,47 @@ class Quiz(cmd.Cmd):
 
                     print "\nError! Quiz failed to download! Please try again\n To download quiz please type:\n  downloadquiz <quiz_name>"                
 
+        def do_uploadquiz(self,quiz_source_path):
+            #quiz_source_path = raw_input(str("Please enter the path for the quiz you wish to upload.\n"))
+            quiz_full_path = quiz_source_path + ".json"
+            quiz_name = os.path.basename(quiz_source_path)
+            quiz_name_to_post = str(quiz_name)
+
+            #Debug
+            print quiz_name
+
+            #If file exists, upload
+            if os.path.isfile(quiz_full_path) == True:
+                print "File existence confirmed"
+
+                # Write the contents to json file
+                with open(quiz_full_path, 'r') as json_file:
+                    try:
+
+                        # Use json.load to move contents
+                        quiz = json.load(json_file)
+
+                        #Debug
+                        print quiz
+
+                        print("=======Uploading Quiz {}=======").format(quiz_name)
+
+                        for n in tqdm(range(10)):
+                            time.sleep(0.5)
+
+                        # Call a put request and save to your firebase database 
+                        firebase.put("/Quiz/",quiz_name_to_post, quiz)
+
+
+
+                        print "(\nQuiz successfully uploaded!\n)"
+
+                    except:
+
+                        print ("Upload failed! Please type upload<quiz_name> to try again.\nType help<uploadquiz> for help.")
+
+            else:
+                print ("Quiz does not exist at source.")
 
 
             def do_EOF(self,line):
