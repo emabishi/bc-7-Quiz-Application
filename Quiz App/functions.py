@@ -167,7 +167,7 @@ class Quiz(cmd.Cmd):
 
 
                     #Prompt user for an answer
-                    user_answer = raw_input("Please enter your answer.\n")
+                    user_answer = raw_input("Please enter your answer.\n").upper()
 
                     elapsed = time.time() - start_time
 
@@ -232,7 +232,7 @@ class Quiz(cmd.Cmd):
                     out_of_time = False
 
 
-                    user_answer = raw_input("Please enter your answer.\n")
+                    user_answer = raw_input("Please enter your answer.\n").upper()
 
                     elapsed = time.time() - start_time
 
@@ -248,7 +248,7 @@ class Quiz(cmd.Cmd):
 
                         score += 1
 
-                        print "Your score is {}").format(score)
+                        print "Your score is {}".format(score)
                     else:
                         print "Your answer is incorrect \n"
                         print "Your score is {}".format(score)
@@ -257,7 +257,7 @@ class Quiz(cmd.Cmd):
                     position +=1
 
                     if position == len(questions):
-                        print "Your total socre is {} \n").format(score)
+                        print "Your total score is {} \n".format(score)
                         print "Questions in module over. Please take another quiz"
                         print "\nUse command <listquizzes> to see your list of local quizzes or help to view options.\n"
 
@@ -266,13 +266,11 @@ class Quiz(cmd.Cmd):
 
         
         def do_importquiz(self,src):
-
-             """ 
-            DESCRIPTION: Import quiz from external location i.e.external drive or folder
-            USAGE: Command : importquiz <quiz source path> 
+            """
+            DESCRIPTION: Import quiz from external location other than the internet. Use for external and internal storage locations
+            USAGE: Command : importquiz <quiz source path>
             """
 
-            #Local destination to store imported quizzes
             local_destination = 'C:\\Quizzler\\Imported Quizzes'
 
             #If folder does not exist, create it
@@ -281,7 +279,7 @@ class Quiz(cmd.Cmd):
 
             try:
                 #Copy json file from source to destination
-                shutil.copy(src,local_destination)
+                shutil.copy((src + '.json'),local_destination)
                 print "Quiz successfully imported to local quiz folder"
 
             #Print Error message showing user that source and local path are the same
@@ -355,16 +353,12 @@ class Quiz(cmd.Cmd):
 
 
                     print "-" + "Downloading file".center(74,"*") + "-"
-
-                    #Show progress bar
-                    for i in tqdm(range(10)):
-                        sleep(0.5)
        
 
                 except:
 
                     print "\nError! Quiz failed to download! Please try again\n".center(74, "*")
-                    print "To download quiz please type: downloadquiz <quiz_name>",center(74, "*")             
+                    print "To download quiz please type: downloadquiz <quiz_name>".center(74, "*")             
 
         def do_uploadquiz(self,quiz_source_path):
 
