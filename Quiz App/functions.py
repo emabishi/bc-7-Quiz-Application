@@ -162,16 +162,27 @@ class Quiz(cmd.Cmd):
 
                 #Monitor number of questions asked
                 position = 0
+                start_time = time.time()
+                duration = 10 * len(questions)
                 while position < len(questions):
 
                     #return a question in the quiz
                     print questions[position]
 
-                    #Call start timing function
-                    #start_timing()
+                    #Still time left
+                    out_of_time = False
+
+
 
                     #Prompt user for an answer
                     user_answer = raw_input("Please enter your answer.\n")
+                    elapsed = time.time() - start_time
+                    if elapsed > duration:
+                        out_of_time == True
+                        print("Sorry! Your time's up!")
+                        break
+                    print "time remaining: %.f seconds" % (duration - elapsed)
+                    
                     if user_answer == GOT[(questions[position])]:
                         print("Your answer is correct! \n")
                         score += 1
@@ -242,8 +253,50 @@ class Quiz(cmd.Cmd):
                 print quiz
 
 
-        def do_EOF(self,line):
-            return True
+        def do_downloadquiz(self,quiz_name):
+            #quiz_name = raw_input("Please enter the name of the quiz you wish to download.")
+
+            # Url for the selected json file
+            download_url = firebase_url + '/Quiz/' + quiz_name
+
+            # Folder to store downloaded samplequiz
+            destination_folder = "C:\\Quizzler\\Downloaded Quizzes"
+            file_path = "C:\\Quizzler\\Downloaded Quizzes\\" + quiz_name + '.json'
+
+            # Check if destination folder exists and create it if it does not exist
+            if os.path.exists(destination_folder) == False:
+                os.makedirs(destination_folder)
+
+
+            #Check if file already exists
+
+            if os.path.isfile(file_path) == True:
+                print "Quiz already exists in local quiz folder"
+
+            else:
+                 # file_name = destination_folder + quiz_name + ".json"
+
+
+                result = firebase.get('/Quiz/' + quiz_name, None)
+                #quiz_file = urllib.URLopener()
+                try:
+                    with open(file_path, 'w') as fp:
+                        json.dump(result, fp)
+
+
+                    print ("=======Creating Destination Folder====")
+                    for i in tqdm(range(10)):
+                        sleep(0.5)
+       
+
+                except:
+
+                    print "\nError! Quiz failed to download! Please try again\n To download quiz please type:\n  downloadquiz <quiz_name>"                
+
+
+
+            def do_EOF(self,line):
+                return True
 
 if __name__ == '__main__':
     Quiz().cmdloop()
