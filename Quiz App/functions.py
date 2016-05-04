@@ -17,47 +17,60 @@ firebase = firebase.FirebaseApplication('https://scorching-inferno-6139.firebase
 
 
 class Quiz(cmd.Cmd):
-        prompt = '(Quizzler)'
+        prompt = '|Quizzler|'
 
 
-    #Change deafult prompt to 'Quizzler'
-        #prompt = '(Quizzler)'
+        a = '*'
+        b = '**'
+        c = '***'
+        d = '=' 
+        e = '-'
+
         player_name = raw_input("What is your name Player?\n")
-        print("========================Greetings {}!=======================").format(player_name)
-        print("=================Welcome to Quizzler!====================")
-        print("\n=============Give me a moment to load!=================\n")
+        print c + " Greetings! {} ".format(player_name).center(74, d) + c
+        print " " 
+        print c + " Welcome to Quizzler! ".center(74, d) + c
+        print " " 
+        print c + " Give me a moment to load! ".center(74, d) + c
+        time.sleep(0.5)
         for x in tqdm(range(20)):
             time.sleep(0.1)
-        print("\nUse these commands to explore quizzler's functionality.\n")
+        print " "
+        print " "
+        print "       ".center(80,e) 
+        print " Use these commands to explore quizzler's functionality.".center(74) 
+        print " "
         time.sleep(0.5)
-        print ("\n  ====================Commands====================  \n")
+        print " COMMANDS ".center(78)
+        print "  ".center(80,e)
         time.sleep(0.2)
-        print ("\nhelp ===================== `Displays all available commands and their descriptions`\n")
+        print c + " help ====| Displays all available commands and their descriptions ".center(74) + c
         time.sleep(0.2)
-        print ("\nhelp<command> ============ 'Describes the command\n")
+        print c + " help <command> ====| Describes the command ".center(74) + c
         time.sleep(0.2)
-        print ("\nlistquizzes ============== 'Displays available local quizzes \n")
+        print c + " listquizzes ====| Displays available local quizzes ".center(74) + c
         time.sleep(0.2)
-        print ("\ntakequiz<quiz_name> ====== 'Launches the local quiz quiz_name'\n")
+        print c + " takequiz <quiz name> ====| Launches the local quiz quiz name ".center(74) + c
         time.sleep(0.2)
-        print ("\nlistonline   ============= 'Display available online quizzes'\n")
+        print c + " listonline ====| Display available online quizzes ".center(74) + c
         time.sleep(0.2)
-        print ("\ntakeonline <quiz_name> ====`Launch the online quiz quiz_name`\n")
+        print c + " downloadquiz <quiz source path> ====| Add a quiz to the local collection from online source ".center(74) + c
         time.sleep(0.2)
-        print ("\nimportquiz <path_to_json> = `Add a quiz to the local collection`\n")
+        print c + " uploadquiz ====| Add quiz to online collection ".center(74) + c
         time.sleep(0.2)
-        print ("\npublishquiz  ==============='Add quiz to online collection\n")
+        print c + " importquiz ====| Add quiz to local collection from external source ".center(74) + c
+        time.sleep(0.5)
+        print " "
 
 
-
-        #listquizzes command-  List of all the available quizzes in your library
-        #quizzes stored in C:Quizzler\\Quizzes
         def do_listquizzes(self,line):
+
             """ 
-            DESCRIPTION: List all local quizzes in quiz app
+            DESCRIPTION: List all local quizzes in Quizzler library
             USAGE: Command : listquizzes
 
             """
+
             path_to_local_quizzes = 'C:\\Quizzler\\Quizzes'
 
             #Check whether the folder structure exists, if it does not, create it
@@ -231,7 +244,7 @@ class Quiz(cmd.Cmd):
 
 
         #List online quiz function function
-        def do_list_online(self,online_quizzes):
+        def do_listonline(self,online_quizzes):
 
             """
                 DESCRIPTION
@@ -322,7 +335,7 @@ class Quiz(cmd.Cmd):
                             time.sleep(0.5)
 
                         # Call a put request and save to your firebase database 
-                        firebase.put("/Quiz/",quiz_name_to_post, quiz)
+                        firebase.put("/Quiz/",quiz_name, quiz)
 
 
 
