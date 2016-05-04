@@ -18,8 +18,8 @@
 * [python-firebase 1.2] (https://pypi.python.org/pypi/python-firebase/1.2) : Enables easy connection between Firebase and Python
            ```sudo pip install python-firebase```
        
-  #### To install all requirements, type in your terminal application:
-          ```sudo pip install -R requirements.txt```
+  #### To install all requirements, download the requirements.txt file then type this in your terminal application:
+             pip install -r /path/to/requirements.txt
 
 ### Commands
 * help ====| Displays all available commands and their descriptions
