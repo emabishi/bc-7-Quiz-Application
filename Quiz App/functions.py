@@ -1,22 +1,44 @@
+# Library to provide way of using operating system dependent functionality i.e.make directories
 import os
+
+# Library to manipulate JavaScript Object Notation files with python
 import json
+
+# Library to help randomise data
 import random
+
+#Library to enable printing and manipulation of time
 import time
+
+#Library to enable Command Line Interface Functionality
 import cmd
+
+#Enables progress bar functionality
 from tqdm import tqdm
+
+#Library to enable high level file functionality
 import shutil
+
+#Library to integrate with Firebase
 from firebase import firebase
 
-# Firebase db url to upload and download samplequiz
+# Firebase database url to upload to and download quizzes from 
 firebase_url = 'https://scorching-inferno-6139.firebaseio.com/'
 
 
-# API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
-firebase = firebase.FirebaseApplication('https://scorching-inferno-6139.firebaseio.com/', None)
+# Firebase|Python API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
+firebase = firebase.FirebaseApplication(firebase_url, None)
 
 
 
 class Quiz(cmd.Cmd):
+        """
+        Class that includes all Quizzler functions
+
+        """
+
+        #Introduction script, runs when Quizzler begins
+
         prompt = '|Quizzler|'
 
 
@@ -77,7 +99,7 @@ class Quiz(cmd.Cmd):
             if os.path.exists(path_to_local_quizzes) == False:
                 os.makedirs(path_to_local_quizzes)
 
-            print("These are your local quizzes")
+            print "***" + "These are your local quizzes".center(74,"*") + "***"
 
             for file in os.listdir(path_to_local_quizzes):
 
@@ -85,31 +107,39 @@ class Quiz(cmd.Cmd):
                 if file.endswith(".json"):
 
                     #if it is, print it out without the .json extension
-                    print "=============="+((file)[:len(file) - 5])+"================="
+                    print ("="*37) + " " + ((file)[:len(file) - 5]) + " " + ("="*37)
                     time.sleep(1)
 
             #User tip
-            print("\nTip: Use command 'takequiz<quizname>' to begin taking a quiz\n")
+            print "\nTip: Use command 'takequiz <quizname> to begin taking a quiz\n".center(74," ")
 
             #Add some styling
-            print("$" *20 + "=" * 20 + "%" * 20)
+            print " ".center(80,"*")
 
 
 
-        #takequiz <quiz_name> - Start taking a new quiz  i.e. takequiz LOTR
+
         def do_takequiz(self,quiz_name):
-            #quiz_name = raw_input("Use command 'takequiz<quizname>' to begin taking a quiz\n")    
+
+            """ 
+            DESCRIPTION: List all local quizzes in Quizzler library
+            USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
+            """
 
             #name of local json file. get base name as quiz name
             path_to_quiz_LOTR = 'C:\\Quizzler\\Quizzes\\LOTR.json'
+
+            #If quiz_name given by user is in the basename of the quiz: Allows for user errors
             if quiz_name in os.path.basename(path_to_quiz_LOTR):
 
                 #use json load function to convert to list
                 with open(path_to_quiz_LOTR) as LOTR_quiz:
                     LOTR = json.load(LOTR_quiz)
                 
-                #run LOTR quiz----- #1. Shuffle questions in quiz
+                #Pick questions in .json file
                 questions = LOTR.keys()
+
+                #Shuffle questions in quiz
                 random.shuffle(questions)
 
                 #Start quiz
@@ -119,27 +149,40 @@ class Quiz(cmd.Cmd):
                 #Monitor number of questions asked
                 position = 0
 
+                #Start timing now
                 start_time = time.time()
+
+                #default duration set : 10seconds * number of questions
                 duration = 10 * len(questions)
+
+                #While the position variable is less than the number of questions,
                 while position < len(questions):
 
                     
                     #return a question in the quiz
                     print questions[position]
 
-                    #Still time left
+                    #There's still time left
                     out_of_time = False
 
 
                     #Prompt user for an answer
                     user_answer = raw_input("Please enter your answer.\n")
+
                     elapsed = time.time() - start_time
+
+
+                    #Stop quiz if time is spent
                     if elapsed > duration:
                         out_of_time == True
                         print("Sorry! Your time's up!")
                         break
+
+                    #Every time a question is answered print out the time left for the quiz
                     print "time remaining: %.f seconds" % (duration - elapsed)
-                    if user_answer == LOTR[(questions[position])]:   #Answer to question
+
+                    #Check if answer is correct and return appropriate response 
+                    if user_answer == LOTR[(questions[position])]:   
                         print("Your answer is correct! \n")
                         score += 1
                         print("Your score is {}").format(score)
@@ -147,13 +190,15 @@ class Quiz(cmd.Cmd):
                         print("Your answer is incorrect \n")
                         print("Your score is {}").format(score)
 
-                    #A question has been attempted, increment position variable
+                    #A question has been attempted, increment the position variable
                     position +=1
 
+                    #Questions are over
                     if position == len(questions):
-                        print("Your total socre is {} \n").format(score)
-                        print("Questions in module over. Please take another quiz")
-                        print("\nUse command <listquizzes> to see your list of local quizzes or help to view options.\n")
+                        print("Your total score is {} \n").format(score)
+                        print("Questions in module over. Please take another quiz").center(78,"-")
+                        print " \n"
+                        print("\nUse <listquizzes> to see your list of local quizzes or <help> to view options.\n").center(74, "-")
 
             #else:
                 #print "Invalid response.Quiz does not exist."
