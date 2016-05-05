@@ -19,6 +19,24 @@ from tqdm import tqdm
 #Library to enable high level file functionality
 import shutil
 
+#Library to enhance User Experience with colours
+from colorama import Fore, Back, Style
+
+from colorama import init
+
+
+#Library to enhance User Experience with colours
+from termcolor import cprint 
+
+#Library to enhance User Experience with colours and different text fonts
+from pyfiglet import figlet_format
+
+#Library to hook system specific parameters
+import sys
+
+
+
+
 #Library to integrate with Firebase
 from firebase import firebase
 
@@ -41,6 +59,16 @@ class Quiz(cmd.Cmd):
 
         prompt = '|Quizzler|'
 
+        cprint(figlet_format('QUIZZLER!', font='cyberlarge'),
+       'yellow', 'on_red', attrs=['bold'])
+        cprint(figlet_format('Test Yourself!', font='cyberlarge'),
+       'yellow', 'on_red', attrs=['bold'])
+
+        init()
+
+        # strip colors if stdout is redirected
+        init(strip=not sys.stdout.isatty())
+
 
         a = '*'
         b = '**'
@@ -52,10 +80,10 @@ class Quiz(cmd.Cmd):
         print " "
         player_name = raw_input("What is your name Player?\n")
         print " "
-        print "-".center(78,e)
+        print "-".center(78, e)
         print c + " Greetings! {} ".format(player_name).center(74, d) + c
         print " " 
-        print c + " Welcome to Quizzler! ".center(74, d) + c
+        print Fore.YELLOW + c + " Welcome to Quizzler! ".center(74, d) + c
         print " " 
         print c + " Give me a moment to load! ".center(74, d) + c
         time.sleep(0.5)
@@ -63,30 +91,31 @@ class Quiz(cmd.Cmd):
             time.sleep(0.1)
         print " "
         print " "
-        print "       ".center(80,e) 
-        print " Use these commands to explore quizzler's functionality.".center(74) 
+        print Fore.YELLOW +   "       ".center(80, e) 
+        print Fore.YELLOW + " Use these commands to explore quizzler's functionality.".center(74) 
         print " "
         time.sleep(0.5)
-        print " COMMANDS ".center(78)
-        print "  ".center(80,e)
+        print Fore.YELLOW + " COMMANDS ".center(78)
+        print "  ".center(80, e)
         time.sleep(0.2)
-        print c + " help ====| Displays all available commands and their descriptions ".center(74) + c
+        print Fore.GREEN + c + " help ====| Displays all available commands and their descriptions ".center(74) + c
         time.sleep(0.2)
-        print c + " help <command> ====| Describes the command ".center(74) + c
+        print Fore.GREEN + c + " help <command> ====| Describes the command ".center(74) + c
         time.sleep(0.2)
-        print c + " listquizzes ====| Displays available local quizzes ".center(74) + c
+        print Fore.GREEN + c + " listquizzes ====|  Displays available local quizzes ".center(74) + c
         time.sleep(0.2)
-        print c + " takequiz <quiz name> ====| Launches the local quiz, quiz name ".center(74) + c
+        print Fore.GREEN + c + " takequiz <quiz name> ====| Launches the local quiz, quiz name ".center(74) + c
         time.sleep(0.2)
-        print c + " listonline ====| Display available online quizzes ".center(74) + c
+        print Fore.GREEN + c + " listonline ====|  Display available online quizzes ".center(74) + c
         time.sleep(0.2)
-        print c + " downloadquiz <quiz name> ====| Add a quiz to the local collection from online source ".center(74) + c
+        print Fore.GREEN + c + " download <quiz name> ====| Add quiz to local collection from online source ".center(74) + c
         time.sleep(0.2)
-        print c + " uploadquiz <quiz source path> ====| Add quiz to online collection ".center(74) + c
+        print Fore.GREEN + c + " upload <quiz source path> ====| Add quiz to online collection ".center(74) + c
         time.sleep(0.2)
-        print c + " importquiz <quiz source path> ====| Add quiz to local collection from non online source ".center(74) + c
+        print Fore.GREEN + c + " import <quiz source path> ====| Add quiz to local collection from non online source ".center(74) + c
         time.sleep(0.5)
         print " "
+        print(Style.RESET_ALL)
 
 
         def do_listquizzes(self, line):
@@ -108,7 +137,7 @@ class Quiz(cmd.Cmd):
                 print "You currently have no quizzes. Please import or download a quiz. See help for details."
 
             elif os.path.getsize(path_to_quizzes) != 0:
-                print "***" + "These are your local quizzes".center(74,"*") + "***"
+                print "***" + "These are your local quizzes".center(74, "*") + "***"
 
             for file in os.listdir(path_to_quizzes):
 
@@ -172,6 +201,9 @@ class Quiz(cmd.Cmd):
                         #return a question in the quiz
                         print questions[position]
 
+                        # Add Space for readability
+                        print " "
+
                         #There's still time left
                         out_of_time = False
 
@@ -188,22 +220,26 @@ class Quiz(cmd.Cmd):
                             print "Sorry! Your time's up!"
                             break
 
+                        #Add space for readability
+                        print " "
+
                         #Every time a question is answered print out the time left for the quiz
                         print "time remaining: %.f seconds" % (duration - elapsed)
 
                         #Check if answer is correct and return appropriate response 
                         correct_answer  = str(quiz_data[(questions[position])])
                         if user_answer.upper() == correct_answer.upper():
-
+                            print " "
                             print "Your answer is correct! \n"
                             score += 1
                             print "Your score is {}".format(score)
-                        else: 
+                        else:
+                            print " " 
                             print "Your answer is incorrect \n"
                             print "Your score is {}".format(score)
 
                         #A question has been attempted, increment the position variable
-                        position +=1
+                        position += 1
 
                         #Questions are over
                         if position == len(questions):
@@ -220,10 +256,10 @@ class Quiz(cmd.Cmd):
 
             
         
-        def do_importquiz(self, src):
+        def do_import(self, src):
             """
             DESCRIPTION: Import quiz from external location other than the internet. Use for external and internal storage locations
-            USAGE: Command : importquiz <quiz source path>
+            USAGE: Command : import <quiz source path>
             """
 
             local_destination = 'C:\\Quizzler\\Quizzes'
@@ -268,13 +304,14 @@ class Quiz(cmd.Cmd):
 
                 # Print quiz from firebase db
                 print quiz
+                print " "
 
 
-        def do_downloadquiz(self, quiz_name):
+        def do_download(self, quiz_name):
 
             """
                 DESCRIPTION: List quizzes stored online
-                USAGE: Command: downloadquiz <quiz name>
+                USAGE: Command: download <quiz name>
 
             """
             quiz_name = quiz_name.upper()
@@ -316,11 +353,11 @@ class Quiz(cmd.Cmd):
                     print "\nError! Quiz failed to download! Please try again\n".center(74, "*")
                     print "To download quiz please type: downloadquiz <quiz_name>".center(74, "*")             
 
-        def do_uploadquiz(self, quiz_source_path):
+        def do_upload(self, quiz_source_path):
 
             """
                 DESCRIPTION: Upload quiz to online Firebase database
-                USAGE: Command: uploadquiz <quiz name>
+                USAGE: Command: upload <quiz name>
 
             """
 
@@ -333,6 +370,9 @@ class Quiz(cmd.Cmd):
             #If file exists, upload
             if os.path.isfile(quiz_full_path) == True:
                 print "File existence confirmed".center(74, "-")
+
+                #Space for readability
+                print " "
 
                 # Write the contents to json file
                 with open(quiz_full_path, 'r') as json_file:
@@ -350,6 +390,8 @@ class Quiz(cmd.Cmd):
                         firebase.put("/Quiz/",quiz_name, quiz)
 
                         print "\nQuiz successfully uploaded!\n".center(74,"-")
+                        
+                        print " "
 
                     except:
 
