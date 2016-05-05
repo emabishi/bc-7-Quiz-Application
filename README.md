@@ -21,7 +21,7 @@
   #### To install all requirements, download the requirements.txt file then type this in your terminal application:
              pip install -r /path/to/requirements.txt
 
-* To get you started, after installation, use the commands, listonline and download quiz <quiz name> or copy the quizzes in [this] project's github repository into C:\Quizzler\Quizzes on your machine. (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Local%20Quizzes)
+* To get you started, after installation, use the commands, listonline and download quiz <quiz name> or copy the quizzes in [this] (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Local%20Quizzes) project's github repository into C:\Quizzler\Quizzes on your machine. 
 
 ### Commands
 * help ==== Displays all available commands and their descriptions
