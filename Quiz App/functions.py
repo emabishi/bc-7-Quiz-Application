@@ -1,3 +1,8 @@
+#Quizzler Command Line Application
+#Author : Mabishi Elizabeth for Andela Kenya
+#Date: 5th May 2016
+#Version 1.0
+
 # Library to provide way of using operating system dependent functionality i.e.make directories
 import os
 
@@ -98,7 +103,11 @@ class Quiz(cmd.Cmd):
         time.sleep(0.5)
         print Fore.YELLOW + " COMMANDS ".center(78)
         print "  ".center(80, e)
-        print(Style.RESET_ALL)
+
+
+        #Make table green
+        print Fore.GREEN + " "
+        
 
         #Make table with Commands list
         
@@ -107,14 +116,16 @@ class Quiz(cmd.Cmd):
         x.add_row(["help <command>", "Describes the command"])
         x.add_row(["listquizzes", "Displays available local quizzes"])
         x.add_row(["takequiz <quiz name>", "Launches the local quiz, quiz name"])
-        x.add_row(["takeonline <quiz name>", "Launches the online quiz, quiz name"])
         x.add_row([" listonline", "Display available online quizzes "])
         x.add_row(["download <quiz source path>", "Add quiz to local collection from online source"])
         x.add_row(["import <quiz source path>", "Add quiz to local collection from external source "])
+        x.add_row(["upload <quiz source path>", "Add quiz from local collection to online database  "])
 
         print x
         print " "
-        
+
+        #Rest colorama colours
+        print(Style.RESET_ALL)
 
         def do_listquizzes(self, line):
 
@@ -215,7 +226,8 @@ class Quiz(cmd.Cmd):
                         #Stop quiz if time is spent
                         if elapsed > duration:
                             out_of_time == True
-                            print "Sorry! Your time's up!"
+                            print Fore.RED +"Sorry! Your time's up!"
+                            print(Style.RESET_ALL)
                             break
 
                         #Add space for readability
@@ -228,12 +240,22 @@ class Quiz(cmd.Cmd):
                         correct_answer  = str(quiz_data[(questions[position])])
                         if user_answer.upper() == correct_answer.upper():
                             print " "
-                            print "Your answer is correct! \n"
+                            print Fore.GREEN +"Your answer is correct! \n"
+
+                            print(Style.RESET_ALL)
+
+                            print " "
+
                             score += 1
+
                             print "Your score is {}".format(score)
                         else:
                             print " " 
-                            print "Your answer is incorrect \n"
+                            print Fore.RED +"Your answer is incorrect \n"
+
+                            print(Style.RESET_ALL)
+
+                            print " "
                             print "Your score is {}".format(score)
 
                         #A question has been attempted, increment the position variable
@@ -308,7 +330,7 @@ class Quiz(cmd.Cmd):
         def do_download(self, quiz_name):
 
             """
-                DESCRIPTION: List quizzes stored online
+                DESCRIPTION: Download quizzes stored in the online database
                 USAGE: Command: download <quiz name>
 
             """
@@ -400,7 +422,7 @@ class Quiz(cmd.Cmd):
                 print "Quiz does not exist at source.".center(74,"-")
 
 
-        def do_EOF(self,line):
+        def do_EOF(self, line):
             return True
 
 if __name__ == '__main__':
