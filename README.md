@@ -24,14 +24,17 @@
 * To get you started, after installation, use the commands, listonline and download quiz <quiz name> or copy the quizzes in [this] (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Local%20Quizzes) project's github repository and use the importquiz <quiz source path> command to import them into the Quizzler library. 
 
 ### Commands
-* help ==== Displays all available commands and their descriptions
-* help <command> ==== Describes the command
-* listquizzes ==== Displays available local quizzes
-* takequiz <quiz name> ==== Launches the local quiz quiz name
-* listonline ==== Display available online quizzes
-* downloadquiz <quiz source path> ==== Add a quiz to the local collection from online source
-* uploadquiz ==== Add quiz to online collection
-* importquiz <quiz source path> ==== Add quiz to local collection from external source
+
+|Command| Description|
+|-----|---------------------------------------------------------|
+|help | Displays all available commands and their descriptions |
+| help <command> | Describes the command |
+| listquizzes | Displays available local quizzes |
+| takequiz <quiz name> | Launches the local quiz quiz name |
+| listonline | Display available online quizzes |
+| downloadquiz <quiz source path> | Add a quiz to the local collection from online source |
+| uploadquiz | Add quiz to online collection |
+| importquiz <quiz source path> | Add quiz to local collection from external source |
 
 ### Copyright and Licensing
 MIT license. For detailed licence information, see [license] (https://github.com/emabishi/bc-7-Quiz-Application/blob/master/LICENSE)
