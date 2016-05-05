@@ -4,7 +4,7 @@
 
 ### Features
 * Take quizzes directly from the terminal and immediately get scored based on your answers.
-* Upload to and download quizzes from the [Firebase] (http://firebase.com/ service).
+* Upload to and download quizzes from [Firebase] (http://firebase.com/ service).
 * List quizzes in online Firebase storage.
 * Import quizzes from any external location.
 * Easy to develop quiz format. You can add your own quizzes and play them or test others.
@@ -18,18 +18,20 @@
 * [python-firebase 1.2] (https://pypi.python.org/pypi/python-firebase/1.2) : Enables easy connection between Firebase and Python
            ```sudo pip install python-firebase```
        
-  #### To install all requirements, download the requirements.txt file then type this in your terminal application:
+  #### To install all requirements, download the [requirements.txt] (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Quiz%20App) file then type this in your terminal application:
              pip install -r /path/to/requirements.txt
 
+* To get you started, after installation, use the commands, listonline and download quiz <quiz name> or copy the quizzes in [this] (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Local%20Quizzes) project's github repository into C:\Quizzler\Quizzes on your machine. 
+
 ### Commands
-* help ====| Displays all available commands and their descriptions
-* help <command> ====| Describes the command
-* listquizzes ====| Displays available local quizzes
-* takequiz <quiz name> ====| Launches the local quiz quiz name
-* listonline ====| Display available online quizzes
-* downloadquiz <quiz source path> ====| Add a quiz to the local collection from online source
-* uploadquiz ====| Add quiz to online collection
-* importquiz <quiz source path> ====| Add quiz to local collection from external source
+* help ==== Displays all available commands and their descriptions
+* help <command> ==== Describes the command
+* listquizzes ==== Displays available local quizzes
+* takequiz <quiz name> ==== Launches the local quiz quiz name
+* listonline ==== Display available online quizzes
+* downloadquiz <quiz source path> ==== Add a quiz to the local collection from online source
+* uploadquiz ==== Add quiz to online collection
+* importquiz <quiz source path> ==== Add quiz to local collection from external source
 
 ### Copyright and Licensing
 MIT license. For detailed licence information, see [license] (https://github.com/emabishi/bc-7-Quiz-Application/blob/master/LICENSE)
