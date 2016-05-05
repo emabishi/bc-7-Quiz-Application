@@ -28,13 +28,13 @@
 |Command| Description|
 |-----|---------------------------------------------------------|
 |help | Displays all available commands and their descriptions |
-| help <command> | Describes the command |
+| help (command) | Describes the command |
 | listquizzes | Displays available local quizzes |
-| takequiz <quiz name> | Launches the local quiz quiz name |
+| takequiz (quiz name) | Launches the local quiz quiz name |
 | listonline | Display available online quizzes |
-| download <quiz source path> | Add a quiz to the local collection from online source |
-| upload <quizname> | Add quiz to online collection |
-| importquiz <quiz source path> | Add quiz to local collection from external source |
+| download (quiz source path) | Add a quiz to the local collection from online source |
+| upload (quizname) | Add quiz to online collection |
+| importquiz (quiz source path) | Add quiz to local collection from external source |
 
 ### Copyright and Licensing
 MIT license. For detailed licence information, see [license] (https://github.com/emabishi/bc-7-Quiz-Application/blob/master/LICENSE)
