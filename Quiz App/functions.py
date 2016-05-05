@@ -134,6 +134,7 @@ class Quiz(cmd.Cmd):
             DESCRIPTION: Begin taking a quiz.
             USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
             """
+            quiz_name = quiz_name.upper()
             path_to_quiz = 'C:\\Quizzler\\Quizzes\\' + quiz_name +'.json'
 
             try:
@@ -276,6 +277,7 @@ class Quiz(cmd.Cmd):
                 USAGE: Command: downloadquiz <quiz name>
 
             """
+            quiz_name = quiz_name.upper()
 
             # Url for the selected json file in the Firebase database
             download_url = firebase_url + '/Quiz/' + quiz_name
