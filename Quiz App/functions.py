@@ -34,7 +34,8 @@ from pyfiglet import figlet_format
 #Library to hook system specific parameters
 import sys
 
-
+#Library to prettify tables
+from prettytable import PrettyTable
 
 
 #Library to integrate with Firebase
@@ -97,26 +98,23 @@ class Quiz(cmd.Cmd):
         time.sleep(0.5)
         print Fore.YELLOW + " COMMANDS ".center(78)
         print "  ".center(80, e)
-        time.sleep(0.2)
-        print Fore.GREEN + c + " help ====| Displays all available commands and their descriptions ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " help <command> ====| Describes the command ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " listquizzes ====|  Displays available local quizzes ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " takequiz <quiz name> ====| Launches the local quiz, quiz name ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " listonline ====|  Display available online quizzes ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " download <quiz name> ====| Add quiz to local collection from online source ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " upload <quiz source path> ====| Add quiz to online collection ".center(74) + c
-        time.sleep(0.2)
-        print Fore.GREEN + c + " import <quiz source path> ====| Add quiz to local collection from non online source ".center(74) + c
-        time.sleep(0.5)
-        print " "
         print(Style.RESET_ALL)
 
+        #Make table with Commands list
+        
+        x  = PrettyTable(["Command", "Description"])
+        x.add_row(["help", "Displays all available commands and their descriptions"])
+        x.add_row(["help <command>", "Describes the command"])
+        x.add_row(["listquizzes", "Displays available local quizzes"])
+        x.add_row(["takequiz <quiz name>", "Launches the local quiz, quiz name"])
+        x.add_row(["takeonline <quiz name>", "Launches the online quiz, quiz name"])
+        x.add_row([" listonline", "Display available online quizzes "])
+        x.add_row(["download <quiz source path>", "Add quiz to local collection from online source"])
+        x.add_row(["import <quiz source path>", "Add quiz to local collection from external source "])
+
+        print x
+        print " "
+        
 
         def do_listquizzes(self, line):
 
@@ -402,7 +400,7 @@ class Quiz(cmd.Cmd):
                 print "Quiz does not exist at source.".center(74,"-")
 
 
-        def do_EOF(self, line):
+        def do_EOF(self,line):
             return True
 
 if __name__ == '__main__':
