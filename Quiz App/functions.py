@@ -89,7 +89,7 @@ class Quiz(cmd.Cmd):
         print " "
 
 
-        def do_listquizzes(self,line):
+        def do_listquizzes(self, line):
 
             """ 
             DESCRIPTION: List all local quizzes in Quizzler library
@@ -122,15 +122,13 @@ class Quiz(cmd.Cmd):
             #User tip
             print "\nTip: Use command 'takequiz <quizname> to begin taking a quiz\n".center(74," ")
 
-
-
             #Add some styling
             print " ".center(80,"*")
 
 
 
 
-        def do_takequiz(self,quiz_name):
+        def do_takequiz(self, quiz_name):
 
             """ 
             DESCRIPTION: Begin taking a quiz.
@@ -138,88 +136,90 @@ class Quiz(cmd.Cmd):
             """
             path_to_quiz = 'C:\\Quizzler\\Quizzes\\' + quiz_name +'.json'
 
-            #If quiz_name given by user is in the basename of the quiz: Allows for user errors
-            if quiz_name in os.path.basename(path_to_quiz):
+            try:
 
-                #use json load function to convert to list
-                with open(path_to_quiz) as quiz:
-                    quiz_data = json.load(quiz)
-                
-                #Pick questions in .json file
-                questions = quiz_data.keys()
+                #If quiz_name given by user is in the basename of the quiz: Allows for user errors
+                if quiz_name in os.path.basename(path_to_quiz):
 
-                #Shuffle questions in quiz
-                random.shuffle(questions)
-
-                #Start quiz
-                #Set initial score to Zero 
-                score = 0
-
-                #Monitor number of questions asked
-                position = 0
-
-                #Start timing now
-                start_time = time.time()
-
-                #default duration set : 10seconds * number of questions
-                duration = 10 * len(questions)
-
-                #While the position variable is less than the number of questions,
-                while position < len(questions):
-
+                    #use json load function to convert to list
+                    with open(path_to_quiz) as quiz:
+                        quiz_data = json.load(quiz)
                     
-                    #return a question in the quiz
-                    print questions[position]
+                    #Pick questions in .json file
+                    questions = quiz_data.keys()
 
-                    #There's still time left
-                    out_of_time = False
+                    #Shuffle questions in quiz
+                    random.shuffle(questions)
+
+                    #Start quiz
+                    #Set initial score to Zero 
+                    score = 0
+
+                    #Monitor number of questions asked
+                    position = 0
+
+                    #Start timing now
+                    start_time = time.time()
+
+                    #default duration set : 10seconds * number of questions
+                    duration = 10 * len(questions)
+
+                    #While the position variable is less than the number of questions,
+                    while position < len(questions):
+
+                        
+                        #return a question in the quiz
+                        print questions[position]
+
+                        #There's still time left
+                        out_of_time = False
 
 
-                    #Prompt user for an answer
-                    user_answer = raw_input("Please enter your answer.\n")
+                        #Prompt user for an answer
+                        user_answer = raw_input("Please enter your answer.\n")
 
-                    elapsed = time.time() - start_time
+                        elapsed = time.time() - start_time
 
 
-                    #Stop quiz if time is spent
-                    if elapsed > duration:
-                        out_of_time == True
-                        print "Sorry! Your time's up!"
-                        break
+                        #Stop quiz if time is spent
+                        if elapsed > duration:
+                            out_of_time == True
+                            print "Sorry! Your time's up!"
+                            break
 
-                    #Every time a question is answered print out the time left for the quiz
-                    print "time remaining: %.f seconds" % (duration - elapsed)
+                        #Every time a question is answered print out the time left for the quiz
+                        print "time remaining: %.f seconds" % (duration - elapsed)
 
-                    #Check if answer is correct and return appropriate response 
-                    correct_answer  = str(quiz_data[(questions[position])])
-                    if user_answer.upper() == correct_answer.upper():
+                        #Check if answer is correct and return appropriate response 
+                        correct_answer  = str(quiz_data[(questions[position])])
+                        if user_answer.upper() == correct_answer.upper():
 
-                        print "Your answer is correct! \n"
-                        score += 1
-                        print "Your score is {}".format(score)
-                    else: 
-                        print "Your answer is incorrect \n"
-                        print "Your score is {}".format(score)
+                            print "Your answer is correct! \n"
+                            score += 1
+                            print "Your score is {}".format(score)
+                        else: 
+                            print "Your answer is incorrect \n"
+                            print "Your score is {}".format(score)
 
-                    #A question has been attempted, increment the position variable
-                    position +=1
+                        #A question has been attempted, increment the position variable
+                        position +=1
 
-                    #Questions are over
-                    if position == len(questions):
-                        print "Your total score is {}".format(score)
-                        print "\nQuestions in module over. Please take another quiz".center(78,"-")
-                        print " \n"
-                        print "Use <listquizzes> to see your list of local quizzes or <help> to view options.\n".center(74, "-")
+                        #Questions are over
+                        if position == len(questions):
+                            print "Your total score is {}".format(score)
+                            print "\nQuestions in module over. Please take another quiz".center(78,"-")
+                            print " \n"
+                            print "Use <listquizzes> to see your list of local quizzes or <help> to view options.\n".center(74, "-")
 
-            #If quiz does not exist,
-            else:
+                #If quiz does not exist,
+            except IOError:
                 print "Invalid response.Quiz does not exist. Please try again. Use takequiz <quiz name>."
                 print " "
 
 
             
         
-        def do_importquiz(self,src):
+        def do_importquiz(self, src):
             """
             DESCRIPTION: Import quiz from external location other than the internet. Use for external and internal storage locations
             USAGE: Command : importquiz <quiz source path>
@@ -248,7 +248,7 @@ class Quiz(cmd.Cmd):
 
 
         
-        def do_listonline(self,online_quizzes):
+        def do_listonline(self, online_quizzes):
 
             """
                 DESCRIPTION: List quizzes stored online
@@ -269,7 +269,7 @@ class Quiz(cmd.Cmd):
                 print quiz
 
 
-        def do_downloadquiz(self,quiz_name):
+        def do_downloadquiz(self, quiz_name):
 
             """
                 DESCRIPTION: List quizzes stored online
@@ -314,7 +314,7 @@ class Quiz(cmd.Cmd):
                     print "\nError! Quiz failed to download! Please try again\n".center(74, "*")
                     print "To download quiz please type: downloadquiz <quiz_name>".center(74, "*")             
 
-        def do_uploadquiz(self,quiz_source_path):
+        def do_uploadquiz(self, quiz_source_path):
 
             """
                 DESCRIPTION: Upload quiz to online Firebase database
@@ -358,7 +358,7 @@ class Quiz(cmd.Cmd):
                 print "Quiz does not exist at source.".center(74,"-")
 
 
-        def do_EOF(self,line):
+        def do_EOF(self, line):
             return True
 
 if __name__ == '__main__':
