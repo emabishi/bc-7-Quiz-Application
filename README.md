@@ -4,7 +4,7 @@
 
 ### Features
 * Take quizzes directly from the terminal and immediately get scored based on your answers.
-* Upload to and download quizzes from the [Firebase] (http://firebase.com/ service).
+* Upload to and download quizzes from [Firebase] (http://firebase.com/ service).
 * List quizzes in online Firebase storage.
 * Import quizzes from any external location.
 * Easy to develop quiz format. You can add your own quizzes and play them or test others.
