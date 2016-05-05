@@ -10,7 +10,6 @@
 * Easy to develop quiz format. You can add your own quizzes and play them or test others.
 
 ### Dependencies | Requirements
-* Copy quizzes in Local Quizzes folder to path C:\Quizzler\Quizzes
 * [Python 2.7.11] (https://www.python.org/downloads/) : Python Interpreter
 * [requests 2.10.0] (http://docs.python-requests.org/en/master/) : Enables connection between Quizzler and Firebase
            ```sudo pip install requests==1.1.0```
@@ -22,15 +21,17 @@
   #### To install all requirements, download the requirements.txt file then type this in your terminal application:
              pip install -r /path/to/requirements.txt
 
+* To get you started, after installation, use the commands, listonline and download quiz <quiz name> or copy the quizzes in [this] project's github repository into C:\Quizzler\Quizzes on your machine. (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Local%20Quizzes)
+
 ### Commands
-* help ====| Displays all available commands and their descriptions
-* help <command> ====| Describes the command
-* listquizzes ====| Displays available local quizzes
-* takequiz <quiz name> ====| Launches the local quiz quiz name
-* listonline ====| Display available online quizzes
-* downloadquiz <quiz source path> ====| Add a quiz to the local collection from online source
-* uploadquiz ====| Add quiz to online collection
-* importquiz <quiz source path> ====| Add quiz to local collection from external source
+* help ==== Displays all available commands and their descriptions
+* help <command> ==== Describes the command
+* listquizzes ==== Displays available local quizzes
+* takequiz <quiz name> ==== Launches the local quiz quiz name
+* listonline ==== Display available online quizzes
+* downloadquiz <quiz source path> ==== Add a quiz to the local collection from online source
+* uploadquiz ==== Add quiz to online collection
+* importquiz <quiz source path> ==== Add quiz to local collection from external source
 
 ### Copyright and Licensing
 MIT license. For detailed licence information, see [license] (https://github.com/emabishi/bc-7-Quiz-Application/blob/master/LICENSE)
