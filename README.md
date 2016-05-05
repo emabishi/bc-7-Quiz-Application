@@ -10,6 +10,7 @@
 * Easy to develop quiz format. You can add your own quizzes and play them or test others.
 
 ### Dependencies | Requirements
+* Copy quizzes in Local Quizzes folder to path C:\Quizzler\Quizzes
 * [Python 2.7.11] (https://www.python.org/downloads/) : Python Interpreter
 * [requests 2.10.0] (http://docs.python-requests.org/en/master/) : Enables connection between Quizzler and Firebase
            ```sudo pip install requests==1.1.0```
