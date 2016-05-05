@@ -11,14 +11,26 @@
 
 ### Dependencies | Requirements
 * [Python 2.7.11] (https://www.python.org/downloads/) : Python Interpreter
+* 
 * [requests 2.10.0] (http://docs.python-requests.org/en/master/) : Enables connection between Quizzler and Firebase
            ```sudo pip install requests==1.1.0```
+
 * [tqdm 4.5.0] (https://pypi.python.org/pypi/tqdm) : Enables implementation of progress bars
            ```pip install tqdm```
+
 * [python-firebase 1.2] (https://pypi.python.org/pypi/python-firebase/1.2) : Enables easy connection between Firebase and Python
            ```sudo pip install python-firebase```
+
+* [Colorama==0.3.7 ]  (https://pypi.python.org/pypi/colorama) : Colour and font enahancing for python applications. ```pip install colorama```
+
+* [pyfiglet==0.7.5] (https://pypi.python.org/pypi/pyfiglet): Takes ASCII text and renders it in ASCII art fonts.
+```pip install https://pypi.python.org/packages/source/p/pyfiglet/pyfiglet-0.7.5.tar.gz```
+
+*[termcolor==1.1.0] (https://pypi.python.org/pypi/termcolor): ANSII Color formatting for output in terminal. 
+```pip install termcolor```
+
        
-  #### To install all requirements, download the [requirements.txt] (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Quiz%20App) file then type this in your terminal application:
+#### To install all requirements, download the [requirements.txt] (https://github.com/emabishi/bc-7-Quiz-Application/blob/master/requirements.txt) file then type this in your terminal application:
              pip install -r /path/to/requirements.txt
 
 * To get you started, after installation, use the commands, listonline and download quiz <quiz name> or copy the quizzes in [this] (https://github.com/emabishi/bc-7-Quiz-Application/tree/master/Local%20Quizzes) project's github repository and use the importquiz <quiz source path> command to import them into the Quizzler library. 
