@@ -76,15 +76,15 @@ class Quiz(cmd.Cmd):
         time.sleep(0.2)
         print c + " listquizzes ====| Displays available local quizzes ".center(74) + c
         time.sleep(0.2)
-        print c + " takequiz <quiz name> ====| Launches the local quiz quiz name ".center(74) + c
+        print c + " takequiz <quiz name> ====| Launches the local quiz, quiz name ".center(74) + c
         time.sleep(0.2)
         print c + " listonline ====| Display available online quizzes ".center(74) + c
         time.sleep(0.2)
-        print c + " downloadquiz <quiz source path> ====| Add a quiz to the local collection from online source ".center(74) + c
+        print c + " downloadquiz <quiz name> ====| Add a quiz to the local collection from online source ".center(74) + c
         time.sleep(0.2)
-        print c + " uploadquiz ====| Add quiz to online collection ".center(74) + c
+        print c + " uploadquiz <quiz source path> ====| Add quiz to online collection ".center(74) + c
         time.sleep(0.2)
-        print c + " importquiz <quiz source path> ====| Add quiz to local collection from external source ".center(74) + c
+        print c + " importquiz <quiz source path> ====| Add quiz to local collection from non online source ".center(74) + c
         time.sleep(0.5)
         print " "
 
@@ -97,15 +97,20 @@ class Quiz(cmd.Cmd):
 
             """
 
-            path_to_local_quizzes = 'C:\\Quizzler\\Quizzes'
+            path_to_quizzes = 'C:\\Quizzler\\Quizzes'
 
             #Check whether the folder structure exists, if it does not, create it
-            if os.path.exists(path_to_local_quizzes) == False:
-                os.makedirs(path_to_local_quizzes)
+            if os.path.exists(path_to_quizzes) == False:
+                os.makedirs(path_to_quizzes)
 
-            print "***" + "These are your local quizzes".center(74,"*") + "***"
+            #Filesize of new empty folder = 0
+            if os.path.getsize(path_to_quizzes) == 0:
+                print "You currently have no quizzes. Please import or download a quiz. See help for details."
 
-            for file in os.listdir(path_to_local_quizzes):
+            elif os.path.getsize(path_to_quizzes) != 0:
+                print "***" + "These are your local quizzes".center(74,"*") + "***"
+
+            for file in os.listdir(path_to_quizzes):
 
                 #Check whether file is .json files
                 if file.endswith(".json"):
@@ -116,6 +121,8 @@ class Quiz(cmd.Cmd):
 
             #User tip
             print "\nTip: Use command 'takequiz <quizname> to begin taking a quiz\n".center(74," ")
+
+
 
             #Add some styling
             print " ".center(80,"*")
@@ -218,7 +225,7 @@ class Quiz(cmd.Cmd):
             USAGE: Command : importquiz <quiz source path>
             """
 
-            local_destination = 'C:\\Quizzler\\Imported Quizzes'
+            local_destination = 'C:\\Quizzler\\Quizzes'
 
             #If folder does not exist, create it
             if os.path.exists(local_destination) == False:
@@ -274,10 +281,10 @@ class Quiz(cmd.Cmd):
             download_url = firebase_url + '/Quiz/' + quiz_name
 
             # Folder to store downloaded quiz
-            destination_folder = "C:\\Quizzler\\Downloaded Quizzes"
+            destination_folder = "C:\\Quizzler\\Quizzes"
 
 
-            file_path = "C:\\Quizzler\\Downloaded Quizzes\\" + quiz_name + '.json'
+            file_path = "C:\\Quizzler\\Quizzes\\" + quiz_name + '.json'
 
             # Check if destination folder exists and create it if it does not exist
             if os.path.exists(destination_folder) == False:
@@ -349,94 +356,6 @@ class Quiz(cmd.Cmd):
 
             else:
                 print "Quiz does not exist at source.".center(74,"-")
-
-        def do_takeonline(self, online_quiz_name):
-
-
-            """ 
-            DESCRIPTION: Begin taking an online quiz.
-            USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
-            """
-            path_to_quiz = 'C:\\Quizzler\\Downloaded Quizzes\\' + online_quiz_name +'.json'
-
-
-            #If quiz_name given by user is in the basename of the quiz: Allows for user errors
-            if online_quiz_name in os.path.basename(path_to_quiz):
-
-                #use json load function to convert to list
-                with open(path_to_quiz) as online_quiz:
-                    online_quiz_data = json.load(online_quiz)
-                
-                #Pick questions in .json file
-                questions = online_quiz_data.keys()
-
-                #Shuffle questions in quiz
-                random.shuffle(questions)
-
-                #Start quiz
-                #Set initial score to Zero 
-                score = 0
-
-                #Monitor number of questions asked
-                position = 0
-
-                #Start timing now
-                start_time = time.time()
-
-                #default duration set : 10seconds * number of questions
-                duration = 10 * len(questions)
-
-                #While the position variable is less than the number of questions,
-                while position < len(questions):
-
-                    
-                    #return a question in the quiz
-                    print questions[position]
-
-                    #There's still time left
-                    out_of_time = False
-
-
-                    #Prompt user for an answer
-                    user_answer = raw_input("Please enter your answer.\n")
-
-                    elapsed = time.time() - start_time
-
-
-                    #Stop quiz if time is spent
-                    if elapsed > duration:
-                        out_of_time == True
-                        print "Sorry! Your time's up!"
-                        break
-
-                    #Every time a question is answered print out the time left for the quiz
-                    print "time remaining: %.f seconds" % (duration - elapsed)
-
-                    #Check if answer is correct and return appropriate response 
-                    correct_answer  = str(online_quiz_data[(questions[position])])
-                    if user_answer.upper() == correct_answer.upper():
-
-                        print "Your answer is correct! \n"
-                        score += 1
-                        print "Your score is {}".format(score)
-                    else: 
-                        print "Your answer is incorrect \n"
-                        print "Your score is {}".format(score)
-
-                    #A question has been attempted, increment the position variable
-                    position +=1
-
-                    #Questions are over
-                    if position == len(questions):
-                        print "Your total score is {}".format(score)
-                        print "\nQuestions in module over. Please take another quiz".center(78,"-")
-                        print " \n"
-                        print "Use <listquizzes> to see your list of local quizzes or <help> to view options.\n".center(74, "-")
-
-            #If quiz does not exist,
-            else:
-                print "Invalid response.Quiz does not exist. Please try again. Use takequiz <quiz name>."
-                print " "
 
 
         def do_EOF(self,line):
