@@ -129,19 +129,17 @@ class Quiz(cmd.Cmd):
             DESCRIPTION: Begin taking a quiz.
             USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
             """
-
-            #name of local json file. get base name as quiz name
-            path_to_quiz_LOTR = 'C:\\Quizzler\\Quizzes\\LOTR.json'
+            path_to_quiz = 'C:\\Quizzler\\Quizzes\\' + quiz_name +'.json'
 
             #If quiz_name given by user is in the basename of the quiz: Allows for user errors
-            if quiz_name in os.path.basename(path_to_quiz_LOTR):
+            if quiz_name in os.path.basename(path_to_quiz):
 
                 #use json load function to convert to list
-                with open(path_to_quiz_LOTR) as LOTR_quiz:
-                    LOTR = json.load(LOTR_quiz)
+                with open(path_to_quiz) as quiz:
+                    quiz_data = json.load(quiz)
                 
                 #Pick questions in .json file
-                questions = LOTR.keys()
+                questions = quiz_data.keys()
 
                 #Shuffle questions in quiz
                 random.shuffle(questions)
@@ -171,7 +169,7 @@ class Quiz(cmd.Cmd):
 
 
                     #Prompt user for an answer
-                    user_answer = raw_input("Please enter your answer.\n").upper()
+                    user_answer = raw_input("Please enter your answer.\n")
 
                     elapsed = time.time() - start_time
 
@@ -186,11 +184,13 @@ class Quiz(cmd.Cmd):
                     print "time remaining: %.f seconds" % (duration - elapsed)
 
                     #Check if answer is correct and return appropriate response 
-                    if user_answer == LOTR[(questions[position])]:   
+                    correct_answer  = str(quiz_data[(questions[position])])
+                    if user_answer.upper() == correct_answer.upper():
+
                         print "Your answer is correct! \n"
                         score += 1
                         print "Your score is {}".format(score)
-                    else:
+                    else: 
                         print "Your answer is incorrect \n"
                         print "Your score is {}".format(score)
 
@@ -209,65 +209,8 @@ class Quiz(cmd.Cmd):
                 print "Invalid response.Quiz does not exist. Please try again. Use takequiz <quiz name>."
                 print " "
 
-            path_to_quiz_GOT = 'C:\\Quizzler\\Quizzes\\GOT.json'
-            if quiz_name in os.path.basename(path_to_quiz_GOT):
 
-                
-                with open(path_to_quiz_GOT) as GOT_quiz:
-                    GOT = json.load(GOT_quiz)
-
-                
-                questions  = GOT.keys()
-
-                random.shuffle(questions)
-  
-                score = 0
-
-                position = 0
-
-                start_time = time.time()
-                duration = 10 * len(questions)
-
-
-                while position < len(questions):
-
-                    print questions[position]
-
-                    out_of_time = False
-
-
-                    user_answer = raw_input("Please enter your answer.\n").upper()
-
-                    elapsed = time.time() - start_time
-
-                    if elapsed > duration:
-                        out_of_time == True
-                        print "Sorry! Your time's up!"
-                        break
-
-                    print "time remaining: %.f seconds" % (duration - elapsed)
-                    
-                    if user_answer == GOT[(questions[position])]:
-                        print "Your answer is correct! \n"
-
-                        score += 1
-
-                        print "Your score is {}".format(score)
-                    else:
-                        print "Your answer is incorrect \n"
-                        print "Your score is {}".format(score)
-
-                    #A question has been attempted, increment position variable
-                    position +=1
-
-                    if position == len(questions):
-                        print "Your total score is {} \n".format(score)
-                        print "Questions in module over. Please take another quiz"
-                        print "\nUse command <listquizzes> to see your list of local quizzes or help to view options.\n"
-
-            else:
-                print "Invalid response.Quiz does not exist."
-
+            
         
         def do_importquiz(self,src):
             """
@@ -406,6 +349,94 @@ class Quiz(cmd.Cmd):
 
             else:
                 print "Quiz does not exist at source.".center(74,"-")
+
+        def do_takeonline(self, online_quiz_name):
+
+
+            """ 
+            DESCRIPTION: Begin taking an online quiz.
+            USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
+            """
+            path_to_quiz = 'C:\\Quizzler\\Downloaded Quizzes\\' + online_quiz_name +'.json'
+
+
+            #If quiz_name given by user is in the basename of the quiz: Allows for user errors
+            if online_quiz_name in os.path.basename(path_to_quiz):
+
+                #use json load function to convert to list
+                with open(path_to_quiz) as online_quiz:
+                    online_quiz_data = json.load(online_quiz)
+                
+                #Pick questions in .json file
+                questions = online_quiz_data.keys()
+
+                #Shuffle questions in quiz
+                random.shuffle(questions)
+
+                #Start quiz
+                #Set initial score to Zero 
+                score = 0
+
+                #Monitor number of questions asked
+                position = 0
+
+                #Start timing now
+                start_time = time.time()
+
+                #default duration set : 10seconds * number of questions
+                duration = 10 * len(questions)
+
+                #While the position variable is less than the number of questions,
+                while position < len(questions):
+
+                    
+                    #return a question in the quiz
+                    print questions[position]
+
+                    #There's still time left
+                    out_of_time = False
+
+
+                    #Prompt user for an answer
+                    user_answer = raw_input("Please enter your answer.\n")
+
+                    elapsed = time.time() - start_time
+
+
+                    #Stop quiz if time is spent
+                    if elapsed > duration:
+                        out_of_time == True
+                        print "Sorry! Your time's up!"
+                        break
+
+                    #Every time a question is answered print out the time left for the quiz
+                    print "time remaining: %.f seconds" % (duration - elapsed)
+
+                    #Check if answer is correct and return appropriate response 
+                    correct_answer  = str(online_quiz_data[(questions[position])])
+                    if user_answer.upper() == correct_answer.upper():
+
+                        print "Your answer is correct! \n"
+                        score += 1
+                        print "Your score is {}".format(score)
+                    else: 
+                        print "Your answer is incorrect \n"
+                        print "Your score is {}".format(score)
+
+                    #A question has been attempted, increment the position variable
+                    position +=1
+
+                    #Questions are over
+                    if position == len(questions):
+                        print "Your total score is {}".format(score)
+                        print "\nQuestions in module over. Please take another quiz".center(78,"-")
+                        print " \n"
+                        print "Use <listquizzes> to see your list of local quizzes or <help> to view options.\n".center(74, "-")
+
+            #If quiz does not exist,
+            else:
+                print "Invalid response.Quiz does not exist. Please try again. Use takequiz <quiz name>."
+                print " "
 
 
         def do_EOF(self,line):
