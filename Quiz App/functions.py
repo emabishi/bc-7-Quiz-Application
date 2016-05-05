@@ -48,7 +48,11 @@ class Quiz(cmd.Cmd):
         d = '=' 
         e = '-'
 
+        print "-".center(78, e)
+        print " "
         player_name = raw_input("What is your name Player?\n")
+        print " "
+        print "-".center(78,e)
         print c + " Greetings! {} ".format(player_name).center(74, d) + c
         print " " 
         print c + " Welcome to Quizzler! ".center(74, d) + c
@@ -122,7 +126,7 @@ class Quiz(cmd.Cmd):
         def do_takequiz(self,quiz_name):
 
             """ 
-            DESCRIPTION: List all local quizzes in Quizzler library
+            DESCRIPTION: Begin taking a quiz.
             USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
             """
 
@@ -404,8 +408,8 @@ class Quiz(cmd.Cmd):
                 print "Quiz does not exist at source.".center(74,"-")
 
 
-            def do_EOF(self,line):
-                return True
+        def do_EOF(self,line):
+            return True
 
 if __name__ == '__main__':
     Quiz().cmdloop()
