@@ -70,10 +70,13 @@ class Quiz(cmd.Cmd):
         cprint(figlet_format('Test Yourself!', font='cyberlarge'),
        'yellow', 'on_red', attrs=['bold'])
 
+
         init()
 
         # strip colors if stdout is redirected
         init(strip=not sys.stdout.isatty())
+
+        os.system("start C:\QuizzlerSounds\CrowdCheer.wav")
 
 
         a = '*'
@@ -242,6 +245,9 @@ class Quiz(cmd.Cmd):
                             print " "
                             print Fore.GREEN +"Your answer is correct! \n"
 
+                            #Play this sound
+                            os.system("start C:\QuizzlerSounds\AudienceApplause.wav")
+
                             print(Style.RESET_ALL)
 
                             print " "
@@ -253,10 +259,12 @@ class Quiz(cmd.Cmd):
                             print " " 
                             print Fore.RED +"Your answer is incorrect \n"
 
+                            
                             print(Style.RESET_ALL)
 
-                            print " "
+                            
                             print "Your score is {}".format(score)
+                            print " "
 
                         #A question has been attempted, increment the position variable
                         position += 1
@@ -420,6 +428,11 @@ class Quiz(cmd.Cmd):
 
             else:
                 print "Quiz does not exist at source.".center(74,"-")
+
+        def do_applause(self,line):
+
+            #Play wav file
+            os.system("start C:\QuizzlerSounds\AudienceApplause.wav")
 
 
         def do_EOF(self, line):
