@@ -53,7 +53,9 @@ firebase_url = 'https://scorching-inferno-6139.firebaseio.com/'
 # Firebase|Python API to update(PATCH, PUT), create(POST), or remove(DELETE) stored data
 firebase = firebase.FirebaseApplication(firebase_url, None)
 
-
+this_path = os.path.dirname(os.path.abspath(__file__))
+sounds_path = this_path + '/sounds/'
+quizzes_path = this_path + '/quizzes/'
 
 class Quiz(cmd.Cmd):
         """
@@ -76,7 +78,7 @@ class Quiz(cmd.Cmd):
         # strip colors if stdout is redirected
         init(strip=not sys.stdout.isatty())
 
-        os.system("start C:\QuizzlerSounds\CrowdCheer.wav")
+        #os.system("start C:\QuizzlerSounds\CrowdCheer.wav")
 
 
         a = '*'
@@ -138,20 +140,20 @@ class Quiz(cmd.Cmd):
 
             """
 
-            path_to_quizzes = 'C:\\Quizzler\\Quizzes'
+            #path_to_quizzes = 'C:\\Quizzler\\Quizzes'
 
             #Check whether the folder structure exists, if it does not, create it
-            if os.path.exists(path_to_quizzes) == False:
-                os.makedirs(path_to_quizzes)
+            if os.path.exists(quizzes_path) == False:
+                os.makedirs(quizzes_path)
 
             #Filesize of new empty folder = 0
-            if os.path.getsize(path_to_quizzes) == 0:
+            if os.path.getsize(quizzes_path) == 0:
                 print "You currently have no quizzes. Please import or download a quiz. See help for details."
 
-            elif os.path.getsize(path_to_quizzes) != 0:
+            elif os.path.getsize(quizzes_path) != 0:
                 print "***" + "These are your local quizzes".center(74, "*") + "***"
 
-            for file in os.listdir(path_to_quizzes):
+            for file in os.listdir(quizzes_path):
 
                 #Check whether file is .json files
                 if file.endswith(".json"):
@@ -176,7 +178,7 @@ class Quiz(cmd.Cmd):
             USAGE: Command : takequiz <quiz name> Start taking a new quiz of quiz name
             """
             quiz_name = quiz_name.upper()
-            path_to_quiz = 'C:\\Quizzler\\Quizzes\\' + quiz_name +'.json'
+            path_to_quiz = quizzes_path + quiz_name +'.json'
 
             try:
 
@@ -246,7 +248,7 @@ class Quiz(cmd.Cmd):
                             print Fore.GREEN +"Your answer is correct! \n"
 
                             #Play this sound
-                            os.system("start C:\QuizzlerSounds\AudienceApplause.wav")
+                            #os.system("start C:\QuizzlerSounds\AudienceApplause.wav")
 
                             print(Style.RESET_ALL)
 
@@ -290,15 +292,15 @@ class Quiz(cmd.Cmd):
             USAGE: Command : import <quiz source path>
             """
 
-            local_destination = 'C:\\Quizzler\\Quizzes'
+            #local_destination = 'C:\\Quizzler\\Quizzes'
 
             #If folder does not exist, create it
-            if os.path.exists(local_destination) == False:
-                os.makedirs(local_destination)
+            if os.path.exists(quizzes_path) == False:
+                os.makedirs(quizzes_path)
 
             try:
                 #Copy json file from source to destination
-                shutil.copy((src + '.json'),local_destination)
+                shutil.copy((src + '.json'),quizzes_path)
                 print "Quiz successfully imported to local quiz folder"
 
             #Print Error message showing user that source and local path are the same
@@ -348,14 +350,14 @@ class Quiz(cmd.Cmd):
             download_url = firebase_url + '/Quiz/' + quiz_name
 
             # Folder to store downloaded quiz
-            destination_folder = "C:\\Quizzler\\Quizzes"
+            #destination_folder = "C:\\Quizzler\\Quizzes"
 
 
-            file_path = "C:\\Quizzler\\Quizzes\\" + quiz_name + '.json'
+            file_path = quizzes_path + quiz_name + '.json'
 
             # Check if destination folder exists and create it if it does not exist
-            if os.path.exists(destination_folder) == False:
-                os.makedirs(destination_folder)
+            if os.path.exists(quizzes_path) == False:
+                os.makedirs(quizzes_path)
 
 
             #Check if file already exists
@@ -429,10 +431,10 @@ class Quiz(cmd.Cmd):
             else:
                 print "Quiz does not exist at source.".center(74,"-")
 
-        def do_applause(self,line):
+        #def do_applause(self,line):
 
             #Play wav file
-            os.system("start C:\QuizzlerSounds\AudienceApplause.wav")
+            #os.system("start C:\QuizzlerSounds\AudienceApplause.wav")
 
 
         def do_EOF(self, line):
