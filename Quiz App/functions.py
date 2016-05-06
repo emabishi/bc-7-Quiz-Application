@@ -377,7 +377,7 @@ class Quiz(cmd.Cmd):
 
             """
                 DESCRIPTION: Upload quiz to online Firebase database
-                USAGE: Command: upload <quiz name>
+                USAGE: Command: upload <quiz source path>
 
             """
 
