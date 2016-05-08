@@ -13,15 +13,15 @@
 * [Python 2.7.11] (https://www.python.org/downloads/) : Python Interpreter
 
 * [requests 2.10.0] (http://docs.python-requests.org/en/master/) : Enables connection between Quizzler and Firebase
-           ```sudo pip install requests==1.1.0```
+           ```pip install requests==1.1.0```
 
 * [tqdm 4.5.0] (https://pypi.python.org/pypi/tqdm) : Enables implementation of progress bars
            ```pip install tqdm```
 
 * [python-firebase 1.2] (https://pypi.python.org/pypi/python-firebase/1.2) : Enables easy connection between Firebase and Python
-           ```sudo pip install python-firebase```
+           ```pip install python-firebase```
 
-* [Colorama==0.3.7 ]  (https://pypi.python.org/pypi/colorama) : Colour and font enahancing for python applications. ```pip install colorama```
+* [Colorama==0.3.7 ]  (https://pypi.python.org/pypi/colorama) : Colour and font enhancing for python applications. ```pip install colorama```
 
 * [pyfiglet==0.7.5] (https://pypi.python.org/pypi/pyfiglet): Takes ASCII text and renders it in ASCII art fonts.
 ```pip install https://pypi.python.org/packages/source/p/pyfiglet/pyfiglet-0.7.5.tar.gz```
