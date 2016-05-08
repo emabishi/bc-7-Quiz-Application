@@ -45,8 +45,8 @@
 | listquizzes | Displays available local quizzes |
 | takequiz (quiz name) | Launches the local quiz quiz name |
 | listonline | Display available online quizzes |
-| download (quiz source path) | Add a quiz to the local collection from online source |
-| upload (quiz name) | Add quiz to online collection |
+| download (quiz) | Add a quiz to the local collection from online source |
+| upload (quiz source path | Add quiz to online collection |
 | importquiz (quiz source path) | Add quiz to local collection from external source |
 
 ### Copyright and Licensing
